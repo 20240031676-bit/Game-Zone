@@ -1,41 +1,41 @@
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#6c5ce7,#00cec9,#fd79a8);background-attachment:fixed;color:#222;min-height:100vh}
+body{font-family:Arial,sans-serif;background:radial-gradient(circle at 20% 20%,#2b3350,#0d0f1a 60%),linear-gradient(160deg,#1a1e2e,#05060a);background-attachment:fixed;color:#f2f2f4;min-height:100vh}
 .container{width:90%;max-width:1200px;margin:auto}
 
-header{background:rgba(23,23,23,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:white;padding:40px 0;text-align:center;border-bottom:1px solid rgba(255,255,255,.15)}
-header h1{font-size:42px;margin-bottom:10px}
-header p{color:#eee;font-size:18px}
+header{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:white;padding:40px 0;text-align:center;border-bottom:1px solid rgba(255,255,255,.08)}
+header h1{font-size:42px;margin-bottom:10px;font-weight:700;letter-spacing:-.5px}
+header p{color:#a8adba;font-size:18px}
 
-.search-section{background:rgba(255,255,255,.15);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);margin:30px 0;padding:25px;border-radius:16px;border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 32px rgba(0,0,0,.15)}
-.search-section h2{margin-bottom:15px;color:#fff}
+.search-section{background:rgba(255,255,255,.06);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);margin:30px 0;padding:25px;border-radius:22px;border:1px solid rgba(255,255,255,.1);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.search-section h2{margin-bottom:15px;color:#fff;font-weight:600}
 .search-box{display:flex;gap:10px}
-.search-box input{flex:1;padding:14px;border:1px solid rgba(255,255,255,.4);border-radius:8px;font-size:16px;background:rgba(255,255,255,.5);backdrop-filter:blur(6px);color:#222}
-.search-box input::placeholder{color:#444}
-.search-box button{padding:14px 25px;border:1px solid rgba(255,255,255,.3);border-radius:8px;background:rgba(108,92,231,.6);backdrop-filter:blur(10px);color:white;font-size:16px;cursor:pointer;transition:background .2s}
-.search-box button:hover{background:rgba(87,71,199,.75)}
+.search-box input{flex:1;padding:14px 18px;border:1px solid rgba(255,255,255,.12);border-radius:14px;font-size:16px;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);color:#fff}
+.search-box input::placeholder{color:#8a8f9c}
+.search-box button{padding:14px 25px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(108,92,231,.55);backdrop-filter:blur(10px);color:white;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s}
+.search-box button:hover{background:rgba(108,92,231,.8)}
 
 .results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;color:#fff}
 
 .games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;padding-bottom:40px}
-.game-card{background:rgba(255,255,255,.15);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 32px rgba(0,0,0,.15);transition:transform .2s,background .2s}
-.game-card:hover{transform:translateY(-5px);background:rgba(255,255,255,.22)}
+.game-card{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 12px 40px rgba(0,0,0,.4);transition:transform .2s,background .2s}
+.game-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.1)}
 .game-card img{width:100%;height:280px;object-fit:cover;display:block}
 .game-info{padding:18px}
-.game-info h3{font-size:20px;margin-bottom:10px;color:#fff}
-.game-info p{margin:7px 0;color:#f0f0f0;font-size:14px}
-.rating{color:#ffb347!important;font-weight:bold}
-.game-link{display:inline-block;margin-top:10px;color:#fff;font-weight:bold;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5)}
-.game-link:hover{text-decoration:none;border-bottom-color:#fff}
+.game-info h3{font-size:20px;margin-bottom:10px;color:#fff;font-weight:600}
+.game-info p{margin:7px 0;color:#c3c6cf;font-size:14px}
+.rating{color:#ffb454!important;font-weight:bold;background:rgba(255,180,84,.12);padding:2px 10px;border-radius:20px;display:inline-block}
+.game-link{display:inline-block;margin-top:12px;color:#fff;font-weight:600;text-decoration:none;padding:8px 16px;border:1px solid rgba(255,255,255,.15);border-radius:20px;background:rgba(255,255,255,.05);transition:background .2s}
+.game-link:hover{background:rgba(255,255,255,.15)}
 
 .loading{text-align:center;padding:30px;color:#fff}
-.spinner{width:40px;height:40px;border:5px solid rgba(255,255,255,.3);border-top:5px solid #fff;border-radius:50%;animation:spin 1s linear infinite;margin:auto auto 10px}
+.spinner{width:40px;height:40px;border:5px solid rgba(255,255,255,.15);border-top:5px solid #fff;border-radius:50%;animation:spin 1s linear infinite;margin:auto auto 10px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.error{background:rgba(255,229,229,.35);backdrop-filter:blur(10px);color:#7a0016;padding:15px;border-radius:8px;margin-bottom:20px;border:1px solid rgba(176,0,32,.3)}
+.error{background:rgba(255,90,90,.12);backdrop-filter:blur(16px);color:#ff8080;padding:15px;border-radius:14px;margin-bottom:20px;border:1px solid rgba(255,90,90,.25)}
 .hidden{display:none}
 
-footer{background:rgba(23,23,23,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:white;text-align:center;padding:25px;margin-top:30px;border-top:1px solid rgba(255,255,255,.15)}
+footer{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#c3c6cf;text-align:center;padding:25px;margin-top:30px;border-top:1px solid rgba(255,255,255,.08)}
 footer p{margin:5px}
-footer a{color:white}
+footer a{color:#fff}
 
 @media(max-width:600px){header h1{font-size:32px}.search-box{flex-direction:column}.search-box button{width:100%}.results-header{flex-direction:column;align-items:flex-start;gap:5px}}
