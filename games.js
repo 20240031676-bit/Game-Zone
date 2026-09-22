@@ -16,6 +16,14 @@ export default async function handler(req, res) {
       }
     );
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      return res.status(response.status).json({
+        error: "GameBrain API error",
+        details: errorText.slice(0, 300),
+      });
+    }
+
     const data = await response.json();
     return res.status(200).json(data);
   } catch (error) {
