@@ -210,11 +210,16 @@ function displayGames(games){
       btn.querySelector("svg").setAttribute("fill",nowFav?"currentColor":"none");
       if(currentView==="favorites"&&!nowFav)setView("favorites");
     });
-
     const trackClick=()=>addRecentlyClicked(game);
-    card.querySelector("img").addEventListener("click",trackClick);
+
+    card.addEventListener("click",(e)=>{
+      if(e.target.closest(".fav-btn"))return; // don't trigger on favorite toggle
+      trackClick();
+      if(linkEl)window.open(linkEl.href,"_blank","noopener");
+    });
+
     const linkEl=card.querySelector(".game-link");
-    if(linkEl)linkEl.addEventListener("click",trackClick);
+    card.style.cursor="pointer";
 
     gamesContainer.appendChild(card);
   });
