@@ -1,0 +1,6 @@
+{
+  "name": "gamezonemark",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GameZoneMark video game search app using GameBrain and Vercel"
+}
