@@ -10,22 +10,10 @@ const genrePanel=document.getElementById("genrePanel");
 const navIcons=document.querySelectorAll(".nav-icon");
 
 const GENRES=["Action","Adventure","RPG","Strategy","Shooter","Simulation","Sports","Racing","Puzzle","Platformer","Horror","Indie"];
-const HOME_SEEDS=["Minecraft","Zelda","Mario","Fortnite","Call of Duty","Grand Theft Auto","Overwatch","Pokemon","Valorant","Cyberpunk","Halo","FIFA","Roblox","Among Us","League of Legends","Apex Legends","Skyrim","Stardew Valley","Hollow Knight","Elden Ring","Tetris","Portal","Terraria","Fall Guys"];
 const STORAGE={FAVORITES:"gz_favorites",RECENT_SEARCHES:"gz_recent_searches",RECENT_CLICKED:"gz_recent_clicked"};
 const LIMITS={RECENT_SEARCHES:10,RECENT_CLICKED:20};
 
 let currentView="home";
-
-function pickRandomSeed(){return HOME_SEEDS[Math.floor(Math.random()*HOME_SEEDS.length)]}
-function shuffleArray(list){
-  const arr=[...list];
-  for(let i=arr.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
-  }
-  return arr;
-}
-function loadHomeGames(){searchGames(pickRandomSeed(),"Popular Games",true)}
 
 /* ---------- storage helpers ---------- */
 function readList(key){try{const v=JSON.parse(localStorage.getItem(key));return Array.isArray(v)?v:[]}catch{return[]}}
@@ -80,7 +68,7 @@ function setView(view){
   if(view==="home"){
     resultsTitle.textContent="Popular Games";
     resultCount.textContent="";
-    loadHomeGames();
+    searchGames("Minecraft");
   }else if(view==="genres"){
     renderGenrePanel();
     resultsTitle.textContent="Browse by genre";
@@ -152,7 +140,7 @@ searchForm.addEventListener("submit",async(e)=>{
   await searchGames(term);
 });
 
-async function searchGames(term,titleOverride,shuffleResults){
+async function searchGames(term,titleOverride){
   showLoading(true); hideError();
   gamesContainer.innerHTML=""; resultCount.textContent="";
   resultsTitle.textContent=titleOverride||`Results for "${term}"`;
@@ -160,12 +148,11 @@ async function searchGames(term,titleOverride,shuffleResults){
     const response = await fetch(`/api/games?search=${encodeURIComponent(term)}`);
     const data=await response.json();
     if(!response.ok) throw new Error(data.error||"Unable to retrieve games.");
-    let games=Array.isArray(data)?data:(data.results||[]);
+    const games=Array.isArray(data)?data:(data.results||[]);
     if(!games.length){
       gamesContainer.innerHTML="<p class=\"empty-state\">No games found. Try another search.</p>";
       resultCount.textContent="0 results"; return;
     }
-    if(shuffleResults)games=shuffleArray(games);
     resultCount.textContent=`${games.length} results`;
     displayGames(games);
     if(currentView==="home"&&!titleOverride)addRecentSearch(term);
@@ -187,7 +174,7 @@ function displayGames(games){
     const year=game.year??(game.first_release_date?new Date(game.first_release_date*1000).getFullYear():"Unknown");
     const genre=Array.isArray(game.genres)?game.genres.map(g=>typeof g==="string"?g:(g.name||"")).join(", "):(game.genre||"Unknown");
     const description=game.short_description||game.description||"";
-    const link=safeLink(game.link||game.url||"");
+    const link=game.link||game.url||"";
     card.innerHTML=`
       <button class="fav-btn${isFavorite(id)?" active":""}" type="button" aria-label="Toggle favorite">
         <svg viewBox="0 0 24 24" fill="${isFavorite(id)?"currentColor":"none"}" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7.5-4.6-9.7-9A5.4 5.4 0 0 1 12 6a5.4 5.4 0 0 1 9.7 5c-2.2 4.4-9.7 9-9.7 9Z"/></svg>
@@ -220,22 +207,9 @@ function displayGames(games){
   });
 }
 
-function safeLink(raw){
-  if(!raw)return"";
-  let str=String(raw).trim();
-  if(str.length>200)return""; // corrupted API values come back abnormally long
-  if(/(.{8,})\1/.test(str))return""; // repeated-substring corruption pattern
-  if(!/^https?:\/\//i.test(str))str="https://"+str;
-  try{
-    const u=new URL(str);
-    if(!/^https?:$/.test(u.protocol))return"";
-    return u.href;
-  }catch{return""}
-}
-
 function showLoading(show){loading.classList.toggle("hidden",!show)}
 function showError(message){error.textContent=message;error.classList.remove("hidden")}
 function hideError(){error.classList.add("hidden")}
 function escapeHTML(value){return String(value).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 
-loadHomeGames();
+searchGames("Minecraft");
