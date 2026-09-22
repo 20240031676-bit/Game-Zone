@@ -416,5 +416,51 @@ function escapeHTML(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+function setView(view) {
+  currentView = view;
+  hideError();
+  searchSection.classList.toggle("hidden", view !== "home");
+  genrePanel.classList.toggle("hidden", view !== "genres");
+  const extraPanel = document.getElementById("recentSearchPanel");
+  if (extraPanel) extraPanel.remove();
+
+  if (view === "home") {
+    // 1. Reset input search box
+    if (searchInput) searchInput.value = "";
+
+    // 2. Reset filter dropdowns if present
+    if (sortSelect) sortSelect.value = "";
+    if (platformFilter) platformFilter.value = "all";
+
+    // 3. Reset title & page state, then reload default home games
+    resultsTitle.textContent = "Popular Games";
+    resultCount.textContent = "";
+    currentPage = 1;
+    loadHomeGames();
+  } else if (view === "genres") {
+    renderGenrePanel();
+    resultsTitle.textContent = "Browse by genre";
+    resultCount.textContent = "";
+    gamesContainer.innerHTML = `<p class="empty-state">Pick a genre above to see matching games.</p>`;
+    renderPagination(0);
+  } else if (view === "recent") {
+    renderRecentSearches();
+  } else if (view === "favorites") {
+    renderStoredList(getFavorites(), "Favorites", "No favorites yet — tap the heart on a game to save it here.");
+  } else if (view === "history") {
+    renderStoredList(readList(STORAGE.RECENT_CLICKED), "Recently clicked", "No games clicked yet — open a game and it'll show up here.");
+  }
+}
 
 loadHomeGames();
+// Make header click trigger home reset
+const headerLogo = document.querySelector(".header-inner");
+if (headerLogo) {
+  headerLogo.style.cursor = "pointer";
+  headerLogo.addEventListener("click", () => {
+    navIcons.forEach(b => b.classList.remove("active"));
+    const homeBtn = document.querySelector('.nav-icon[data-view="home"]');
+    if (homeBtn) homeBtn.classList.add("active");
+    setView("home");
+  });
+}
