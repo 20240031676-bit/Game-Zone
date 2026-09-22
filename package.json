@@ -1,0 +1,6 @@
+{
+  "name": "gamefinder",
+  "version": "1.0.0",
+  "description": "A video game discovery website using the IGDB API",
+  "private": true
+}
