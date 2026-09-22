@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameFinder - Video Game Search</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="gamezone-logo.svg" >
+      <h1>Game Zone</h1>
+      <p>Discover your next favorite video game</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-section">
+      <h2>Find a Game</h2>
+      <form id="searchForm">
+        <div class="search-box">
+          <input id="searchInput" type="text" placeholder="Search for a game..." required>
+          <button type="submit">Search</button>
+        </div>
+      </form>
+    </section>
+
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Searching for games...</p>
+    </div>
+
+    <div id="error" class="error hidden"></div>
+
+    <section>
+      <div class="results-header">
+        <h2 id="resultsTitle">Popular Games</h2>
+        <span id="resultCount"></span>
+      </div>
+      <div id="gamesContainer" class="games-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>GameFinder &copy; 2026</p>
+    <p>Game data powered by <a href="https://gamebrain.co/" target="_blank" rel="noopener">GameBrain</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
