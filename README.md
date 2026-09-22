@@ -1,101 +1,58 @@
-# 🎮 GameFinder
+# 🎮 GameFinder - GameBrain
 
-GameFinder is a full-stack video game search website that uses the IGDB API to search for real video game information.
+A full-stack video game search website using the GameBrain API.
 
 ## Features
-
 - Search for video games
-- Real IGDB data
-- Game cover images
-- Release dates
-- Genres
+- Real GameBrain data
+- Game images
+- Release year
+- Genre
 - Platforms
 - Ratings
-- Loading indicator
-- Error handling
+- Descriptions
+- Loading and error states
 - Responsive design
-- Netlify serverless backend
+- Netlify serverless function
 
-## Technologies
+## API
+GameBrain endpoint:
+`GET https://api.gamebrain.co/v1/games?query=GAME_NAME`
 
-- HTML5
-- CSS3
-- JavaScript
-- Netlify Functions
-- Twitch OAuth
-- IGDB API
+Authentication is sent server-side using the `x-api-key` header.
 
-## Project Structure
+## API Key
+Create a `.env` file for local development:
 
-GameFinder/
-- public/index.html
-- public/style.css
-- public/script.js
-- netlify/functions/games.js
-- netlify.toml
-- package.json
-- .gitignore
-- .env.example
-- README.md
+`GAMEBRAIN_API_KEY=your_gamebrain_api_key`
 
-## API Authentication
+On Netlify, add `GAMEBRAIN_API_KEY` as an environment variable.
 
-IGDB uses Twitch authentication.
-
-The Twitch Client ID and Client Secret must not be placed in frontend JavaScript or committed to GitHub.
-
-For local development, create a `.env` file:
-
-TWITCH_CLIENT_ID=your_client_id
-TWITCH_CLIENT_SECRET=your_client_secret
-
-For Netlify, add these two values as environment variables in the site's settings.
+Never commit the real API key to GitHub.
 
 ## Run Locally
-
 Install Netlify CLI:
 
-npm install -g netlify-cli
+`npm install -g netlify-cli`
 
-Log in:
+Then:
 
-netlify login
+`netlify dev`
 
-Start the project:
+## Deploy
+1. Push this folder to a public GitHub repository.
+2. Import the repository into Netlify.
+3. Publish directory: `public`
+4. Functions directory: `netlify/functions`
+5. Add the `GAMEBRAIN_API_KEY` environment variable.
+6. Deploy.
 
-netlify dev
+## How It Works
+The browser sends:
 
-Then open the local URL provided by Netlify.
+`GET /.netlify/functions/games?search=Minecraft`
 
-## Deploy to Netlify
+The Netlify Function adds the private GameBrain API key and makes a GET request to GameBrain. The results are returned to the browser and displayed as game cards.
 
-1. Push this project to a public GitHub repository.
-2. Create a new site on Netlify.
-3. Connect the GitHub repository.
-4. Set the publish directory to `public`.
-5. Set the functions directory to `netlify/functions`.
-6. Add:
-   - TWITCH_CLIENT_ID
-   - TWITCH_CLIENT_SECRET
-7. Deploy the site.
-
-## How the App Works
-
-The browser sends a GET request to:
-
-/.netlify/functions/games?search=GAME_NAME
-
-The Netlify Function obtains a Twitch access token, sends an authenticated request to IGDB, and returns the results to the browser.
-
-The Twitch Client Secret remains on the server.
-
-## Assignment Requirements
-
-- Team API: IGDB
-- Real API data: Yes
-- GET request: Yes
-- Interactive feature: Search
-- Full-stack: Frontend + Netlify Function
-- API credentials protected: Yes
-- Deployment: Netlify
-- Repository: GitHub
+## Attribution
+Game data is powered by GameBrain.

@@ -1,6 +1,6 @@
 {
-  "name": "gamefinder",
+  "name": "gamefinder-gamebrain",
   "version": "1.0.0",
-  "description": "A video game discovery website using the IGDB API",
+  "description": "A video game search website using the GameBrain API",
   "private": true
 }
