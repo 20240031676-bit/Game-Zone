@@ -1,6 +1,6 @@
 {
-  "name": "gamefinder-gamebrain",
+  "name": "gamezonemark",
   "version": "1.0.0",
-  "description": "A video game search website using the GameBrain API",
-  "private": true
+  "private": true,
+  "description": "GameZoneMark video game search app using GameBrain and Vercel"
 }

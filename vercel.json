@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/games.js": {
+      "maxDuration": 10
+    }
+  }
+}
