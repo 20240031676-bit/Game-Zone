@@ -18,7 +18,7 @@ async function searchGames(term){
   gamesContainer.innerHTML=""; resultCount.textContent="";
   resultsTitle.textContent=`Results for "${term}"`;
   try{
-    const response=await fetch(`/.netlify/functions/games?search=${encodeURIComponent(term)}`);
+const response = await fetch(`/api/games?search=${encodeURIComponent(term)}`);
     const data=await response.json();
     if(!response.ok) throw new Error(data.error||"Unable to retrieve games.");
     const games=Array.isArray(data)?data:(data.results||[]);
