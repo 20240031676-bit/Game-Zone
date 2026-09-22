@@ -28,15 +28,15 @@
   </nav>
 
   <div class="page">
- <header>
-  <div class="container header-inner">
-    <img src="gamezone-logo.svg" alt="Game Zone logo">
-    <div class="header-text">
-      <h1>Game Zone</h1>
-      <p>Discover your next favorite video game</p>
-    </div>
-  </div>
-</header>
+    <header>
+      <div class="container header-inner">
+        <img src="gamezone-logo.svg" alt="Game Zone logo">
+        <div class="header-text">
+          <h1>Game Zone</h1>
+          <p>Discover your next favorite video game</p>
+        </div>
+      </div>
+    </header>
 
     <main class="container">
       <section class="search-section" id="searchSection">
@@ -44,18 +44,35 @@
         <form id="searchForm">
           <div class="search-box">
             <input id="searchInput" type="text" placeholder="Search for a game..." required>
+            
+            <!-- NEW: Integrated Select Controls -->
+            <select id="sortSelect" class="filter-select">
+              <option value="">Sort By</option>
+              <option value="rating-desc">Highest Rated</option>
+              <option value="rating-asc">Lowest Rated</option>
+              <option value="year-desc">Release Year</option>
+              <option value="title-asc">Title (A-Z)</option>
+            </select>
+
+            <select id="platformFilter" class="filter-select">
+              <option value="all">All Platforms</option>
+              <option value="pc">PC</option>
+              <option value="playstation">PlayStation</option>
+              <option value="xbox">Xbox</option>
+              <option value="switch">Switch</option>
+              <option value="mobile">Mobile</option>
+            </select>
+
             <button type="submit">Search</button>
           </div>
         </form>
       </section>
 
       <div id="genrePanel" class="genre-panel hidden"></div>
-
       <div id="loading" class="loading hidden">
         <div class="spinner"></div>
         <p>Searching for games...</p>
       </div>
-
       <div id="error" class="error hidden"></div>
 
       <section>
@@ -64,6 +81,9 @@
           <span id="resultCount"></span>
         </div>
         <div id="gamesContainer" class="games-grid"></div>
+        
+        <!-- NEW: Pagination Bar -->
+        <div id="paginationContainer" class="pagination-bar"></div>
       </section>
     </main>
 
