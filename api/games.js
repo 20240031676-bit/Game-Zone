@@ -1,32 +1,26 @@
+// Example Server Endpoint Fix
 export default async function handler(req, res) {
   const { search } = req.query;
-  const API_KEY = process.env.GAMEBRAIN_API_KEY;
-
-  if (!API_KEY) {
-    return res.status(500).json({ error: "API key is missing" });
-  }
 
   try {
-    const response = await fetch(
-      `https://api.gamebrain.co/v1/games?query=${encodeURIComponent(search || "")}`,
-      {
-        headers: {
-          "x-api-key": API_KEY,
-        },
+    const apiRes = await fetch(`https://api.gamebrain.co/v1/games?query=${encodeURIComponent(search)}`, {
+      headers: {
+        'x-api-key': process.env.GAMEBRAIN_API_KEY // Ensure key is set
       }
-    );
+    });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      return res.status(response.status).json({
-        error: "GameBrain API error",
-        details: errorText.slice(0, 300),
+    if (!apiRes.ok) {
+      const errorText = await apiRes.text();
+      console.error("GameBrain Error Status:", apiRes.status, errorText);
+      return res.status(apiRes.status).json({ 
+        error: `GameBrain API responded with status ${apiRes.status}` 
       });
     }
 
-    const data = await response.json();
+    const data = await apiRes.json();
     return res.status(200).json(data);
-  } catch (error) {
-    return res.status(500).json({ error: "Failed to fetch data from API" });
+  } catch (err) {
+    console.error("Server fetch error:", err);
+    return res.status(500).json({ error: "Failed to connect to GameBrain API" });
   }
 }
